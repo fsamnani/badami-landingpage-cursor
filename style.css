@@ -36,6 +36,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-synthesis: none;
+}
+
 /* ----- Hero ----- */
 .hero {
   min-height: 100vh;
@@ -43,58 +49,67 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1.5rem;
+  padding: 1.05rem 1.5rem;
   text-align: center;
 }
 
 .logo {
-  width: clamp(280px, 56vw, 400px);
+  width: clamp(200px, 56vw, 400px);
   height: auto;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.25rem;
   display: block;
 }
 
-/* Replace tagline styling if needed */
-.tagline {
+/* Hero hierarchy (v2) */
+.headline {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  font-weight: 500;
-  font-style: italic;
-  color: var(--brown);
-  letter-spacing: 0.02em;
-  margin-bottom: 1rem;
-}
-
-.coming-soon {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-size: clamp(1.7rem, 3.9vw, 2.45rem);
   font-weight: 500;
   color: var(--brown-dark);
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
+  letter-spacing: 0.01em;
+  margin: 0 auto 0.55rem;
+  line-height: 1.12;
+  max-width: 100%;
+}
+
+.subheadline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.05rem, 2.3vw, 1.25rem);
+  font-weight: 400;
+  color: var(--brown);
+  letter-spacing: 0.015em;
+  margin: 0 auto 0.9rem;
+  line-height: 1.65;
+  max-width: 46ch;
 }
 
 .email-form {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
   justify-content: center;
-  max-width: 360px;
+  width: 100%;
+  max-width: 420px;
 }
 
 .email-form input {
-  flex: 1 1 200px;
   min-width: 0;
-  padding: 0.85rem 1rem;
+  width: 100%;
+  padding: 1rem 1.1rem;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--brown-dark);
   background: #fff;
-  border: 1px solid var(--beige);
+  border: 2px solid var(--beige);
   outline: none;
-  transition: border-color 0.2s ease;
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 0 1px rgba(196, 140, 144, 0.08),
+    0 8px 26px rgba(107, 93, 71, 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  animation: inputGlowBreath 4s ease-in-out infinite;
 }
 
 .email-form input::placeholder {
@@ -102,26 +117,81 @@ body {
 }
 
 .email-form input:focus {
-  border-color: var(--rose-muted);
+  border-color: rgba(196, 140, 144, 0.75);
+  box-shadow:
+    inset 0 0 0 1px rgba(196, 140, 144, 0.16),
+    0 16px 38px rgba(107, 93, 71, 0.09);
+  animation-play-state: paused;
 }
 
 .email-form button {
-  flex: 1 1 auto;
-  padding: 0.85rem 1.5rem;
+  width: 100%;
+  padding: 1rem 1.35rem;
   font-family: 'Cormorant Garamond', serif;;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #fff;
   background: var(--brown);
   border: none;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  border-radius: 14px;
+  min-height: 44px;
+  transition: background-color 0.2s ease, transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 14px 30px rgba(107, 93, 71, 0.14);
 }
 
 .email-form button:hover {
   background: var(--brown-dark);
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.email-form button:focus {
+  outline: none;
+  box-shadow:
+    0 14px 30px rgba(107, 93, 71, 0.14),
+    0 0 0 4px rgba(196, 140, 144, 0.25);
+}
+
+.cta-note {
+  margin-top: 0.6rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--brown-dark);
+}
+
+@media (min-width: 1024px) {
+  .headline {
+    white-space: nowrap;
+    max-width: none;
+  }
+}
+
+@keyframes inputGlowBreath {
+  0%,
+  100% {
+    box-shadow:
+      inset 0 0 0 1px rgba(196, 140, 144, 0.08),
+      0 8px 26px rgba(107, 93, 71, 0.06),
+      0 0 0 0 rgba(217, 154, 159, 0.2);
+    border-color: var(--beige);
+  }
+  50% {
+    box-shadow:
+      inset 0 0 0 1px rgba(196, 140, 144, 0.12),
+      0 10px 34px rgba(107, 93, 71, 0.08),
+      0 0 28px 6px rgba(217, 154, 159, 0.35);
+    border-color: rgba(196, 140, 144, 0.55);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .email-form input {
+    animation: none;
+  }
 }
 
 /* ----- Visual Section ----- */
@@ -145,7 +215,7 @@ body {
 
 /* ----- Brand Values ----- */
 .values {
-  padding: 4rem 1.5rem;
+  padding: 5.25rem 1.5rem;
   max-width: 560px;
   margin: 0 auto;
 }
@@ -177,7 +247,7 @@ body {
 
 /* ----- Brand Note ----- */
 .brand-note {
-  padding: 0 1.5rem 4rem;
+  padding: 0 1.5rem 4.75rem;
   max-width: 560px;
   margin: 0 auto;
 }
@@ -191,7 +261,7 @@ body {
 
 /* ----- Footer ----- */
 .footer {
-  padding: 3rem 1.5rem;
+  padding: 3.5rem 1.5rem;
   background: var(--cream-warm);
   text-align: center;
 }
