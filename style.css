@@ -60,6 +60,13 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 }
 
+@media (max-width: 768px) {
+  /* ~12% smaller than base clamp for vertical balance on small screens only */
+  .logo {
+    width: clamp(176px, 49vw, 352px);
+  }
+}
+
 /* Hero hierarchy (v2) */
 .headline {
   font-family: 'Cormorant Garamond', serif;
