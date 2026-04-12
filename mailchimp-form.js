@@ -15,6 +15,14 @@
   var MC_F_ID = '00927feaf0';
   var MC_HONEYPOT = 'b_b8392bd964521f44e2727e911_1f4ef8c829';
 
+  // Production: false. When true, only MC_DEV_DUPLICATE_BYPASS_EMAIL may skip the
+  // "already subscribed" error and show the normal success state (for local testing).
+  var MC_DEV_BYPASS_DUPLICATE_CHECK = false;
+  var MC_DEV_DUPLICATE_BYPASS_EMAIL = 'fwsamnani@gmail.com';
+
+  var junkPatterns = ['asdf', '123', 'test', 'fake', 'qwerty'];
+  var invalidDomainPatterns = ['plan.com', 'asdf.com'];
+
   function setStatus(type, message) {
     if (!statusEl) return;
     statusEl.textContent = message;
@@ -28,6 +36,28 @@
     return str.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
   }
 
+  function isLowQualityEmail(email) {
+    if (email.length < 5) return true;
+    var at = email.indexOf('@');
+    if (at < 1) return true;
+    var local = email.slice(0, at);
+    if (local.length < 3) return true;
+    var isJunk =
+      junkPatterns.some(function (p) {
+        return email.indexOf(p) !== -1;
+      }) ||
+      invalidDomainPatterns.some(function (p) {
+        return email.slice(-p.length) === p;
+      });
+    return isJunk;
+  }
+
+  function restoreSubmitUi() {
+    if (!submitBtn || !form.contains(submitBtn)) return;
+    submitBtn.disabled = false;
+    submitBtn.textContent = btnDefaultText;
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -38,6 +68,16 @@
 
     var honeypot = form.querySelector('input[name="' + MC_HONEYPOT + '"]');
     if (honeypot && honeypot.value) {
+      return;
+    }
+
+    var email = emailInput.value.toLowerCase().trim();
+
+    if (isLowQualityEmail(email)) {
+      if (statusEl) {
+        statusEl.textContent = 'Please enter a valid email.';
+        statusEl.className = 'form-status form-status--error';
+      }
       return;
     }
 
@@ -62,24 +102,44 @@
       if (script.parentNode) {
         script.parentNode.removeChild(script);
       }
-      submitBtn.disabled = false;
-      submitBtn.textContent = btnDefaultText;
+      restoreSubmitUi();
     }
 
     window[cb] = function (data) {
       finish();
 
+      var raw = data && data.msg;
+      var combined = Array.isArray(raw) ? raw.join(' ') : String(raw || '');
+      var message = stripTags(combined);
+
       if (data && data.result === 'success') {
-        setStatus('success', "You're on the list. Stay tuned for first access.");
-        form.reset();
-        emailInput.blur();
+        if (message.toLowerCase().indexOf('already subscribed') !== -1) {
+          if (
+            !(
+              MC_DEV_BYPASS_DUPLICATE_CHECK &&
+              email === MC_DEV_DUPLICATE_BYPASS_EMAIL
+            )
+          ) {
+            if (statusEl) {
+              statusEl.textContent = "You're already on the list.";
+              statusEl.className = 'form-status form-status--error';
+            }
+            return;
+          }
+        }
+        form.innerHTML =
+          '<div class="form-success-state" role="status">' +
+          "<h3>You're in!</h3>" +
+          '<p>We’ll reach out before anyone else.</p>' +
+          '</div>';
         return;
       }
 
-      var raw = data && data.msg;
-      var combined = Array.isArray(raw) ? raw.join(' ') : String(raw || '');
-      var msg = stripTags(combined) || 'Something went wrong. Please try again.';
-      setStatus('error', msg);
+      var msg = message || 'Something went wrong. Try again.';
+      if (statusEl) {
+        statusEl.textContent = msg;
+        statusEl.className = 'form-status form-status--error';
+      }
     };
 
     script.onerror = function () {
