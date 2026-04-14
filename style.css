@@ -91,6 +91,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .email-form {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -162,6 +163,75 @@ h1, h2, h3, h4, h5, h6 {
     0 0 0 4px rgba(196, 140, 144, 0.25);
 }
 
+.email-form button:disabled {
+  cursor: wait;
+  opacity: 0.82;
+  transform: none;
+  filter: none;
+}
+
+.email-form-honeypot {
+  position: absolute;
+  left: -5000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-status {
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--brown);
+}
+
+.form-status:empty {
+  display: none;
+}
+
+.form-status--success {
+  color: var(--rose-muted);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.05rem, 2.3vw, 1.25rem);
+  font-weight: 500;
+}
+
+.form-status--error {
+  color: var(--rose-muted);
+}
+
+.form-success-state {
+  text-align: center;
+  padding: 20px;
+  animation: fadeSlideUp 0.6s ease-out;
+}
+
+.form-success-state h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: var(--brown-dark);
+}
+
+.form-success-state p {
+  color: var(--brown);
+  font-size: 14px;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .cta-note {
   margin-top: 0.6rem;
   font-family: 'Cormorant Garamond', serif;
@@ -198,6 +268,16 @@ h1, h2, h3, h4, h5, h6 {
 @media (prefers-reduced-motion: reduce) {
   .email-form input {
     animation: none;
+  }
+
+  .form-success-state {
+    animation: popIn 0.35s ease-out;
+  }
+
+  @keyframes popIn {
+    0% { opacity: 0; transform: scale(0.96); }
+    70% { transform: scale(1.02); }
+    100% { opacity: 1; transform: scale(1); }
   }
 }
 
