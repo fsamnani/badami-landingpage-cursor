@@ -15,10 +15,8 @@
   var MC_F_ID = '00927feaf0';
   var MC_HONEYPOT = 'b_b8392bd964521f44e2727e911_1f4ef8c829';
 
-  // Production: false. When true, only MC_DEV_DUPLICATE_BYPASS_EMAIL may skip the
-  // "already subscribed" error and show the normal success state (for local testing).
+  /** Dev: true = skip “already subscribed” handling; success UI like a new signup. Production: false. */
   var MC_DEV_BYPASS_DUPLICATE_CHECK = false;
-  var MC_DEV_DUPLICATE_BYPASS_EMAIL = 'fwsamnani@gmail.com';
 
   var junkPatterns = ['asdf', '123', 'test', 'fake', 'qwerty'];
   var invalidDomainPatterns = ['plan.com', 'asdf.com'];
@@ -113,24 +111,21 @@
       var message = stripTags(combined);
 
       if (data && data.result === 'success') {
-        if (message.toLowerCase().indexOf('already subscribed') !== -1) {
-          if (
-            !(
-              MC_DEV_BYPASS_DUPLICATE_CHECK &&
-              email === MC_DEV_DUPLICATE_BYPASS_EMAIL
-            )
-          ) {
-            if (statusEl) {
-              statusEl.textContent = "You're already on the list.";
-              statusEl.className = 'form-status form-status--error';
-            }
-            return;
+        if (
+          !MC_DEV_BYPASS_DUPLICATE_CHECK &&
+          message.toLowerCase().indexOf('already subscribed') !== -1
+        ) {
+          if (statusEl) {
+            statusEl.textContent = "You're already on the list.";
+            statusEl.className = 'form-status form-status--error';
           }
+          return;
         }
         form.innerHTML =
           '<div class="form-success-state" role="status">' +
           "<h3>You're in!</h3>" +
-          '<p>We’ll reach out before anyone else.</p>' +
+          '<p>We’ll share something special with you soon.</p>' +
+     
           '</div>';
         return;
       }
