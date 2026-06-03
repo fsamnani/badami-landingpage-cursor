@@ -1,16 +1,34 @@
 /* ============================================
-   Badami — Coming Soon Landing Page
+   Badami — Coming Soon Landing Page (V3)
    Color palette: cream, soft beige, muted brown, rose accents
    ============================================ */
+
+@font-face {
+  font-family: "Ivy Presto";
+  src: url("assets/IvyPrestoDisplay-SemiBold.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ivy Presto";
+  src: url("assets/IvyPrestoDisplay-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --cream: #FAF9F6;
   --cream-warm: #f6f3ec;
   --beige: #EBE7E0;
-  --brown: #8A7A5D;
-  --brown-dark: #6B5D47;
+  --brown: #776D69;
+  --dark-truffle: #5A4B47;
   --rose: #D99A9F;
   --rose-muted: #C48C90;
+  --font-display: "Ivy Presto", "Cormorant Garamond", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
 }
 
 *,
@@ -27,19 +45,82 @@ html {
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 300;
-  color: var(--brown-dark);
+  position: relative;
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--dark-truffle);
   background-color: var(--cream-warm);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-weight: 600;
   font-synthesis: none;
+}
+
+/* ----- Menu bar ----- */
+.menu-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.25rem 1.75rem;
+  pointer-events: none;
+}
+
+.menu-bar__list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  pointer-events: auto;
+}
+
+.menu-bar__link {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--brown);
+  opacity: 0.88;
+  transition: opacity 0.25s ease, color 0.25s ease;
+}
+
+.menu-bar__link:hover {
+  color: var(--dark-truffle);
+  opacity: 1;
+  text-decoration: underline;
+  text-decoration-color: rgba(119, 109, 105, 0.4);
+  text-underline-offset: 0.32em;
+  text-decoration-thickness: 1px;
+}
+
+.menu-bar__link:focus-visible {
+  outline: 2px solid var(--rose-muted);
+  outline-offset: 3px;
+  border-radius: 2px;
+  opacity: 1;
 }
 
 /* ----- Hero ----- */
@@ -58,6 +139,8 @@ h1, h2, h3, h4, h5, h6 {
   height: auto;
   margin-bottom: 0.25rem;
   display: block;
+  opacity: 0;
+  animation: fadeFloatIn 1.15s ease-out 0.1s forwards;
 }
 
 @media (max-width: 768px) {
@@ -67,26 +150,28 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Hero hierarchy (v2) */
 .headline {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.7rem, 3.9vw, 2.45rem);
-  font-weight: 500;
-  color: var(--brown-dark);
-  letter-spacing: 0.01em;
-  margin: 0 auto 0.55rem;
-  line-height: 1.12;
+  font-family: var(--font-display);
+  font-size: clamp(1.58rem, 3.55vw, 2.22rem);
+  font-weight: 400;
+  font-synthesis: none;
+  color: var(--dark-truffle);
+  letter-spacing: 0.04em;
+  margin: 0 auto 0.65rem;
+  line-height: 1.24;
   max-width: 100%;
+  opacity: 0;
+  animation: fadeFloatIn 1.15s ease-out 0.35s forwards;
 }
 
 .subheadline {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.05rem, 2.3vw, 1.25rem);
+  font-family: var(--font-body);
+  font-size: clamp(0.7875rem, 1.725vw, 0.9375rem);
   font-weight: 400;
   color: var(--brown);
-  letter-spacing: 0.015em;
-  margin: 0 auto 0.9rem;
-  line-height: 1.65;
+  letter-spacing: 0.02em;
+  margin: 0 auto 1rem;
+  line-height: 1.7;
   max-width: 46ch;
 }
 
@@ -104,17 +189,17 @@ h1, h2, h3, h4, h5, h6 {
   min-width: 0;
   width: 100%;
   padding: 1rem 1.1rem;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-body);
   font-size: 1rem;
-  font-weight: 500;
-  color: var(--brown-dark);
+  font-weight: 400;
+  color: var(--dark-truffle);
   background: #fff;
   border: 2px solid var(--beige);
   outline: none;
   border-radius: 14px;
   box-shadow:
     inset 0 0 0 1px rgba(196, 140, 144, 0.08),
-    0 8px 26px rgba(107, 93, 71, 0.06);
+    0 8px 26px rgba(90, 75, 71, 0.06);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   animation: inputGlowBreath 4s ease-in-out infinite;
 }
@@ -127,14 +212,14 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgba(196, 140, 144, 0.75);
   box-shadow:
     inset 0 0 0 1px rgba(196, 140, 144, 0.16),
-    0 16px 38px rgba(107, 93, 71, 0.09);
+    0 16px 38px rgba(90, 75, 71, 0.09);
   animation-play-state: paused;
 }
 
 .email-form button {
   width: 100%;
   padding: 1rem 1.35rem;
-  font-family: 'Cormorant Garamond', serif;;
+  font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: 0.12em;
@@ -146,11 +231,11 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 14px;
   min-height: 44px;
   transition: background-color 0.2s ease, transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 14px 30px rgba(107, 93, 71, 0.14);
+  box-shadow: 0 14px 30px rgba(90, 75, 71, 0.14);
 }
 
 .email-form button:hover {
-  background: var(--brown-dark);
+  background: var(--dark-truffle);
   transform: translateY(-1px);
   filter: brightness(1.04);
 }
@@ -158,16 +243,16 @@ h1, h2, h3, h4, h5, h6 {
 .email-form button:focus {
   outline: none;
   box-shadow:
-    0 14px 30px rgba(107, 93, 71, 0.14),
+    0 14px 30px rgba(90, 75, 71, 0.14),
     0 0 0 4px rgba(196, 140, 144, 0.25);
 }
 
 .cta-note {
   margin-top: 0.6rem;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--brown-dark);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--dark-truffle);
 }
 
 @media (min-width: 1024px) {
@@ -177,27 +262,57 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+@keyframes fadeFloatIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes inputGlowBreath {
   0%,
   100% {
     box-shadow:
       inset 0 0 0 1px rgba(196, 140, 144, 0.08),
-      0 8px 26px rgba(107, 93, 71, 0.06),
+      0 8px 26px rgba(90, 75, 71, 0.06),
       0 0 0 0 rgba(217, 154, 159, 0.2);
     border-color: var(--beige);
   }
   50% {
     box-shadow:
       inset 0 0 0 1px rgba(196, 140, 144, 0.12),
-      0 10px 34px rgba(107, 93, 71, 0.08),
+      0 10px 34px rgba(90, 75, 71, 0.08),
       0 0 28px 6px rgba(217, 154, 159, 0.35);
     border-color: rgba(196, 140, 144, 0.55);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .logo,
+  .headline {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
   .email-form input {
     animation: none;
+  }
+
+  .menu-bar__link {
+    transition: color 0.2s ease, opacity 0.2s ease;
+  }
+
+  .email-form button:hover {
+    transform: none;
   }
 }
 
@@ -229,10 +344,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .values-list {
   list-style: none;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-display);
   font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-  font-weight: 500;
-  color: var(--brown-dark);
+  font-weight: 600;
+  color: var(--dark-truffle);
   line-height: 2;
 }
 
@@ -274,9 +389,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer-tagline {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-display);
   font-size: clamp(1rem, 2vw, 1.1rem);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--brown);
   margin-bottom: 1.25rem;
 }
