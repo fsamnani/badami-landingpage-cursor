@@ -3,22 +3,6 @@
    Color palette: cream, soft beige, muted brown, rose accents
    ============================================ */
 
-@font-face {
-  font-family: "Ivy Presto";
-  src: url("assets/IvyPrestoDisplay-SemiBold.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Ivy Presto";
-  src: url("assets/IvyPrestoDisplay-SemiBold.otf") format("opentype");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
   --cream: #FAF9F6;
   --cream-warm: #f6f3ec;
@@ -27,7 +11,7 @@
   --dark-truffle: #5A4B47;
   --rose: #D99A9F;
   --rose-muted: #C48C90;
-  --font-display: "Ivy Presto", "Cormorant Garamond", Georgia, serif;
+  --font-display: "IvyPresto Disp Semi Bd", "Cormorant Garamond", Georgia, serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
 }
 
