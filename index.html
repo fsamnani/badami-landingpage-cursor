@@ -13,24 +13,48 @@
   <nav class="menu-bar" aria-label="Social links">
     <ul class="menu-bar__list">
       <li>
-        <a class="menu-bar__link" href="https://www.instagram.com/badami.skin" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a class="menu-bar__link" href="https://www.instagram.com/badami.skin" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg class="menu-bar__icon" width="30" height="30" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false">
+            <path d="M22.3,8.4c-0.8,0-1.4,0.6-1.4,1.4c0,0.8,0.6,1.4,1.4,1.4c0.8,0,1.4-0.6,1.4-1.4C23.7,9,23.1,8.4,22.3,8.4z"/>
+            <path d="M16,10.2c-3.3,0-5.9,2.7-5.9,5.9s2.7,5.9,5.9,5.9s5.9-2.7,5.9-5.9S19.3,10.2,16,10.2z M16,19.9c-2.1,0-3.8-1.7-3.8-3.8c0-2.1,1.7-3.8,3.8-3.8c2.1,0,3.8,1.7,3.8,3.8C19.8,18.2,18.1,19.9,16,19.9z"/>
+            <path d="M20.8,4h-9.5C7.2,4,4,7.2,4,11.2v9.5c0,4,3.2,7.2,7.2,7.2h9.5c4,0,7.2-3.2,7.2-7.2v-9.5C28,7.2,24.8,4,20.8,4z M25.7,20.8c0,2.7-2.2,5-5,5h-9.5c-2.7,0-5-2.2-5-5v-9.5c0-2.7,2.2-5,5-5h9.5c2.7,0,5,2.2,5,5V20.8z"/>
+          </svg>
+        </a>
       </li>
       <li>
-        <a class="menu-bar__link" href="https://www.tiktok.com/@badami.skin" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a class="menu-bar__link" href="https://www.tiktok.com/@badami.skin" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+          <svg class="menu-bar__icon" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.77 1.52V6.76a4.85 4.85 0 0 1-1-.1z"/>
+          </svg>
+        </a>
       </li>
     </ul>
   </nav>
 
   <!-- Hero Section -->
   <header class="hero">
-    <img src="assets/logo.png" alt="Badami" class="logo">
-    <h1 class="headline">The Modern Heir to South Asian Skincare</h1>
-    <p class="subheadline">Born from heritage. Formed by modern dermatology. Designed for a visible glow.</p>
-    <form class="email-form" action="#" method="post" aria-label="Email signup">
-      <input type="email" name="email" placeholder="Your email" required>
-      <button type="submit">Be First In</button>
-    </form>
-    <p class="cta-note">Launching soon. Limited first release.</p>
+    <div class="hero-bg" aria-hidden="true">
+      <video
+        class="hero-bg__video"
+        src="assets/background-video.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+      ></video>
+      <div class="hero-bg__overlay"></div>
+    </div>
+    <div class="hero-content">
+      <img src="assets/logo.png" alt="Badami" class="logo">
+      <h1 class="headline">The Modern Heir to South Asian Skincare</h1>
+      <p class="subheadline">Born from heritage. Refined by active skin chemistry. Designed for visible radiance.</p>
+      <form class="email-form" action="#" method="post" aria-label="Email signup">
+        <input type="email" name="email" placeholder="Your email" required>
+        <button type="submit">Be First In</button>
+      </form>
+      <p class="cta-note">Enter your email for the South Asian Skincare Blueprint.</p>
+    </div>
   </header>
 
   <footer class="footer">

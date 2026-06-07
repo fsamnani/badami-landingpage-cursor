@@ -91,29 +91,49 @@ h1, h2, h3, h4, h5, h6 {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 1.4rem;
+  gap: 1.5rem;
   pointer-events: auto;
 }
 
 .menu-bar__link {
-  font-family: var(--font-body);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 0.35rem;
   text-decoration: none;
-  color: var(--brown);
-  opacity: 0.88;
+  color: var(--dark-truffle);
+  opacity: 0.9;
   transition: opacity 0.25s ease, color 0.25s ease;
+}
+
+.menu-bar__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: rgba(90, 75, 71, 0.4);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: none;
 }
 
 .menu-bar__link:hover {
   color: var(--dark-truffle);
   opacity: 1;
-  text-decoration: underline;
-  text-decoration-color: rgba(119, 109, 105, 0.4);
-  text-underline-offset: 0.32em;
-  text-decoration-thickness: 1px;
+}
+
+.menu-bar__link:hover::after,
+.menu-bar__link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.menu-bar__icon {
+  display: block;
+  width: 30px;
+  height: 30px;
 }
 
 .menu-bar__link:focus-visible {
@@ -125,13 +145,76 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ----- Hero ----- */
 .hero {
+  position: relative;
   min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  overflow: hidden;
+}
+
+/* Full-bleed video backdrop — visible around central content only */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--cream-warm);
+}
+
+.hero-bg__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.hero-bg__overlay {
+  position: absolute;
+  inset: 0;
+  background: #F6F3EC;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Calm center surface — opaque cream; no motion behind content */
+.hero-content {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.05rem 1.5rem;
+  width: 100%;
+  max-width: min(36rem, calc(100% - 2rem));
+  padding: clamp(1.4rem, 3.5vh, 2.4rem) clamp(2rem, 5vw, 3.25rem);
   text-align: center;
+  background: var(--cream-warm);
+  border-radius: 20px;
+}
+
+@media (min-width: 769px) {
+  .hero-content {
+    max-width: min(52rem, 72vw);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 1.05rem 1rem;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    padding: clamp(1.75rem, 4vh, 2.5rem) 1.25rem;
+    border-radius: 16px;
+  }
+
+  .hero-bg__overlay {
+    opacity: 0.58;
+  }
 }
 
 .logo {
@@ -313,6 +396,10 @@ h1, h2, h3, h4, h5, h6 {
 
   .email-form button:hover {
     transform: none;
+  }
+
+  .hero-bg__video {
+    display: none;
   }
 }
 
