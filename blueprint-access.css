@@ -1,0 +1,356 @@
+/* ============================================
+   Badami — Skincare Blueprint Page
+   All selectors scoped to .bp-* to prevent any
+   accidental bleed into the homepage stylesheet.
+   ============================================ */
+
+/* --- Brand tokens (local to this page) --- */
+.bp-page {
+  --bp-cream: #FAF9F6;
+  --bp-cream-warm: #f6f3ec;
+  --bp-beige: #EBE7E0;
+  --bp-brown: #776D69;
+  --bp-truffle: #5A4B47;
+  --bp-rose: #D99A9F;
+  --bp-rose-muted: #C48C90;
+  --bp-font-display: "IvyPresto Disp Semi Bd", "Cormorant Garamond", Georgia, serif;
+  --bp-font-body: "Inter", system-ui, -apple-system, sans-serif;
+
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bp-cream-warm);
+  font-family: var(--bp-font-body);
+  color: var(--bp-truffle);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Grain texture overlay — matches landing page aesthetic */
+.bp-page::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
+.bp-page *,
+.bp-page *::before,
+.bp-page *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Container --- */
+.bp-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* --- Header --- */
+.bp-header {
+  padding: 3.5rem 0 2rem;
+  text-align: center;
+}
+
+.bp-logo {
+  height: 150px;
+  width: auto;
+  display: block;
+  margin: 0 auto 1.75rem;
+}
+
+.bp-title {
+  font-family: var(--bp-font-display);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 600;
+  color: var(--bp-truffle);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  font-synthesis: none;
+}
+
+.bp-title-em {
+  font-weight: 400;
+  font-style: italic;
+  color: var(--bp-brown);
+}
+
+.bp-header-divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bp-rose), transparent);
+  margin: 1.25rem auto 1.1rem;
+}
+
+.bp-subtitle {
+  font-family: var(--bp-font-body);
+  font-size: 0.95rem;
+  color: var(--bp-brown);
+  line-height: 1.7;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .bp-header {
+    padding-top: 2.8rem;
+  }
+}
+
+/* --- Filters --- */
+.bp-filters {
+  padding: 0 0 2rem;
+}
+
+.bp-filters-scroll {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  justify-content: center;
+}
+
+/* Nowrap + horizontal scroll for mobile and narrow viewports */
+@media (max-width: 840px) {
+  .bp-filters-scroll {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
+  }
+
+  .bp-filters-scroll::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Extra compact sizing on true mobile */
+@media (max-width: 768px) {
+  .bp-filters-scroll {
+    gap: 0.3rem;
+  }
+
+  .bp-filter-btn {
+    font-size: 0.57rem;
+    padding: 4px 8px;
+    letter-spacing: 0.05em;
+  }
+}
+
+.bp-filter-btn {
+  flex-shrink: 0;
+  font-family: var(--bp-font-body);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 1px solid rgba(217, 154, 159, 0.38);
+  background: transparent;
+  color: var(--bp-brown);
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 30px;
+  transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+
+.bp-filter-btn:hover {
+  border-color: var(--bp-rose);
+  color: var(--bp-truffle);
+}
+
+.bp-filter-btn--active {
+  background: var(--bp-rose);
+  border-color: var(--bp-rose);
+  color: #FAF9F6;
+}
+
+.bp-filter-btn--active:hover {
+  background: var(--bp-rose-muted);
+  border-color: var(--bp-rose-muted);
+  color: #FAF9F6;
+}
+
+.bp-filter-btn:focus-visible {
+  outline: 2px solid var(--bp-rose-muted);
+  outline-offset: 2px;
+}
+
+/* --- Ingredient grid --- */
+.bp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  padding-bottom: 3rem;
+}
+
+@media (max-width: 580px) {
+  .bp-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Card --- */
+.bp-card {
+  position: relative;
+  background: var(--bp-cream);
+  border: 1px solid var(--bp-beige);
+  border-radius: 4px;
+  padding: 1.5rem 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(90, 75, 71, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.bp-card:hover {
+  box-shadow: 0 6px 32px rgba(90, 75, 71, 0.13);
+  transform: translateY(-2px);
+}
+
+.bp-card--hidden {
+  display: none;
+}
+
+/* Rose gradient accent at top of each card */
+.bp-card-accent {
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bp-rose) 30%, var(--bp-rose) 70%, transparent);
+}
+
+.bp-card-emoji {
+  font-size: 1.6rem;
+  line-height: 1;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.bp-card-name {
+  font-family: var(--bp-font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--bp-truffle);
+  line-height: 1.25;
+  margin-bottom: 0.9rem;
+  font-synthesis: none;
+}
+
+.bp-card-shares-label {
+  font-family: var(--bp-font-body);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bp-rose-muted);
+  margin-bottom: 0.45rem;
+}
+
+.bp-card-science {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+}
+
+.bp-science-tag {
+  font-family: var(--bp-font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: rgba(196, 140, 144, 0.1);
+  border: 1px solid rgba(196, 140, 144, 0.3);
+  color: var(--bp-truffle);
+}
+
+.bp-card-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--bp-beige);
+  border: none;
+  margin-bottom: 0.85rem;
+}
+
+.bp-card-description {
+  font-family: var(--bp-font-body);
+  font-size: 0.82rem;
+  color: var(--bp-brown);
+  line-height: 1.65;
+  flex: 1;
+  margin-bottom: 1rem;
+}
+
+.bp-card-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.bp-category-tag {
+  display: inline-block;
+  font-family: var(--bp-font-body);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--bp-rose);
+  color: #FAF9F6;
+}
+
+/* --- Footer --- */
+.bp-footer {
+  text-align: center;
+  padding: 0 1.5rem 3.5rem;
+  background: var(--bp-cream-warm);
+}
+
+.bp-footer-divider {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bp-rose), transparent);
+  margin: 0 auto 1.25rem;
+}
+
+.bp-footer-copy {
+  font-family: var(--bp-font-display);
+  font-size: 0.85rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: var(--bp-rose-muted);
+}
+
+/* --- Reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .bp-card {
+    transition: none;
+  }
+
+  .bp-card:hover {
+    transform: none;
+  }
+
+  .bp-filter-btn {
+    transition: none;
+  }
+}
